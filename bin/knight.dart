@@ -6,7 +6,7 @@ class Knight extends Figure {
   Knight(String color) : super(color);
 
   @override
-  bool checkMove() {
+  bool checkMove(int fromRow, int fromCol, int toRow, int toCol) {
     // TODO: implement checkMove
     throw UnimplementedError();
   }
