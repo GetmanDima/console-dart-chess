@@ -29,7 +29,10 @@ class Pawn extends Figure {
 
       if (fromRow == 6) {
         if (fromRow - toRow > 0 && fromRow - toRow <= 2) {
-          return true;
+          if (Desk.position[5][toCol] == null) {
+            return true;
+          }
+          return false;
         }
       } else if (fromRow - toRow == 1) {
         return true;

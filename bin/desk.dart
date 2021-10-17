@@ -45,12 +45,18 @@ class Desk {
     var toCol = columns[to[0]] ?? 0;
     var figure = position[fromRow][fromCol];
 
-    var check = figure!.checkMove(fromRow, fromCol, toRow, toCol);
+    if (figure == null) {
+      return false;
+    }
+
+    var check = figure.checkMove(fromRow, fromCol, toRow, toCol);
 
     if (check) {
       position[fromRow][fromCol] = null;
       position[toRow][toCol] = figure;
     }
+
+    promotePawn();
 
     return check;
   }

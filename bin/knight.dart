@@ -1,3 +1,5 @@
+import 'dart:math';
+import 'desk.dart';
 import 'figure.dart';
 
 class Knight extends Figure {
