@@ -61,6 +61,17 @@ class Desk {
     return check;
   }
 
+  static void promotePawn() {
+    for (int i = 0; i < 8; i++) {
+      if (position[0][i] != null && position[0][i]!.symbol == 'p') {
+        position[0][i] = Queen('w');
+      }
+      if (position[7][i] != null && position[7][i]!.symbol == 'p'){
+        position[7][i] = Queen('b');
+      }
+    }
+  }
+
   static void render() {
     for (int x = 0; x < 8; x++) {
       for (int y = 0; y < 8; y++) {
