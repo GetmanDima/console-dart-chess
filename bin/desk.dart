@@ -56,7 +56,13 @@ class Desk {
       position[toRow][toCol] = figure;
     }
 
-    promotePawn();
+    if (figure.symbol == 'p') {
+      promotePawn();
+    }
+
+    if (figure.symbol == 'k') {
+      castling(figure, fromRow, fromCol, toRow, toCol);
+    }
 
     return check;
   }
@@ -72,20 +78,51 @@ class Desk {
     }
   }
 
+  static void castling(figure, int fromRow, int fromCol , int toRow, int toCol) { // roque
+    if (figure!.color == 'w' &&
+        fromRow == 7 &&
+        fromCol == 4 &&
+        toRow == 7 &&
+        toCol == 6
+    ) {
+      var rook = position[7][7];
+      position[7][7] = null;
+      position[7][5] = rook;
+    }
+  }
+
   static void render() {
+    var blackFiguresSymbols = {
+      'p': '\u{265F}',
+      'r': '\u{265C}',
+      'n': '\u{265E}',
+      'b': '\u265D',
+      'q': '\u{265B}',
+      'k': '\u{265A}'
+    };
+
+    var whiteFiguresSymbols = {
+      'p': '\u{2659}',
+      'r': '\u{2656}',
+      'n': '\u{2658}',
+      'b': '\u{2657}',
+      'q': '\u{2655}',
+      'k': '\u{2654}'
+    };
+
     for (int x = 0; x < 8; x++) {
       for (int y = 0; y < 8; y++) {
         if (position[x][y] != null) {
           var color = position[x][y]!.color == 'w' ? '\x1B[32m' : '\x1B[31m';
-          var symbol = position[x][y]!.symbol;
+          var symbol = position[x][y]!.color == 'w' ? whiteFiguresSymbols[position[x][y]!.symbol] : blackFiguresSymbols[position[x][y]!.symbol];
 
-          if (position[x][y]!.color == 'w') {
-            symbol = symbol.toString().toUpperCase();
-          }
+          // if (position[x][y]!.color == 'w') {
+          //   symbol = symbol.toString().toUpperCase();
+          // }
 
-          stdout.write(' ' + color + symbol + '\x1B[0m');
+          stdout.write(' ' + color + symbol! + '\x1B[0m');
         } else {
-          stdout.write(' 0');
+          stdout.write(' \u{25AD}');
         }
       }
       stdout.write('\n');
